@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 目的：为DAO接口方法提供sql配置 -->
+<mapper namespace="com.soecode.ghb.dao.MyinfoDao">
+	<select id="queryInfo" resultType="Myinfo">
+		select * from t_myinfo where real_name = '甘海彬'
+	</select>
+	
+	<select id="queryAllResume" resultType="Resume">
+		SELECT
+			t_resume.title,
+			t_resume.description,
+			t_resume.during,
+			t_resume.during_color,
+			t_type.`name` AS subtitle,
+			t_resume.weight
+		FROM
+			t_resume,
+			t_type
+		WHERE
+			t_resume.subtitle_id = t_type.subtitle_id
+		ORDER BY t_resume.id, t_resume.weight 
+		limit #{offset},#{limit} 
+	</select>
+	
+	<select id="queryAllSkill" resultType="Skill">
+		SELECT
+			t_skill.skill_name,
+			t_type.`name` as subtitle,
+			t_skill.percent,
+			t_skill.color
+		FROM
+			t_type ,
+			t_skill
+		WHERE 
+			t_skill.subtitle_id = t_type.subtitle_id
+		ORDER BY t_skill.percent desc
+		limit #{offset},#{limit}  
+	</select>
+	
+	<select id="queryAllTimeline" resultType="Timeline">
+		SELECT
+			t_timeline.title,
+			t_timeline.content,
+			t_timeline.has_link,
+			t_timeline.link,
+			t_timeline.link_text,
+			t_timeline.color,
+			t_timeline.time
+		FROM
+			t_timeline
+		ORDER BY t_timeline.time desc
+		limit #{offset},#{limit} 
+	</select>
+</mapper>

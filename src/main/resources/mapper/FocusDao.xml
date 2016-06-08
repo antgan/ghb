@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 目的：为DAO接口方法提供sql配置 -->
+<mapper namespace="com.soecode.ghb.dao.FocusDao">
+	<insert id="insert" parameterType="Focus">
+		insert into focus(name, email, visit_ip) values(#{name},#{email},#{visit_ip}) 
+	</insert>
+</mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="
+    http://java.sun.com/xml/ns/javaee
+    http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <!-- 修改servlet版本为3.0  -->
+  <welcome-file-list>
+    <welcome-file>/redirect.jsp</welcome-file>
+  </welcome-file-list>
+  <filter>
+    <filter-name>SetCharacterEncodingFilter</filter-name>
+    <filter-class>com.soecode.ghb.filter.SetCharacterEncodingFilter</filter-class>
+    <init-param>
+      <description>给参数和值设名称和编码格式</description>
+      <param-name>encode</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>SetCharacterEncodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <!-- 配置DispatcherServlet -->
+  <servlet>
+  	<servlet-name>ghb-dispatcher</servlet-name>
+  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  	<!-- 整合顺序 
+  		spring-dao.xml, spring-service.xml, spring-web.xml
+  		MyBatis -> spring -> springMVC
+  	 -->
+  	 <init-param>
+  	 	<param-name>contextConfigLocation</param-name>
+  	 	<param-value>classpath:spring/spring-*.xml</param-value>
+  	 </init-param>
+  	 <load-on-startup>0</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ghb-dispatcher</servlet-name>
+  	<url-pattern>/</url-pattern>
+  </servlet-mapping>
+</web-app>

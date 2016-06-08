@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 目的：为DAO接口方法提供sql配置 -->
+<mapper namespace="com.soecode.ghb.dao.SiteVisitDao">
+	<insert id="insertVisit">
+		insert into site_statistics(visit_ip, visit) values(#{visit_ip},1) 
+	</insert>
+
+	<update id="updateVisit">
+		update site_statistics set visit = visit+1 where visit_ip = #{visit_ip}  
+	</update>
+	
+	<select id="queryVisitByIp" resultType="long">
+		select IFNULL(SUM(visit),-1) from site_statistics where visit_ip = #{visit_ip} 
+	</select>
+	
+	<select id="queryVisit" resultType="long">
+		SELECT IFNULL(SUM(visit),-1) AS total from site_statistics 
+	</select>
+</mapper>
